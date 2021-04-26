@@ -1,4 +1,4 @@
-package com.mygalleryvault.ui.gallery
+package com.mygalleryvault.page.ui.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

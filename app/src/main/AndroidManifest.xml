@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyGalleryVault">
         <activity
-            android:name=".MainActivity"
+            android:name=".page.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.MyGalleryVault.NoActionBar">
             <intent-filter>

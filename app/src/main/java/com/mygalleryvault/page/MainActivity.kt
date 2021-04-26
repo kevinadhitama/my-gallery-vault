@@ -1,4 +1,4 @@
-package com.mygalleryvault
+package com.mygalleryvault.page
 
 import android.os.Bundle
 import android.view.Menu
@@ -13,9 +13,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ActivityMainBinding
 import com.mygalleryvault.databinding.DialogCreateAlbumBinding
 
