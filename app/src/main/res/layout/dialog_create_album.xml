@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:hint="Create a new Album"
+        android:hint="@string/hint_create_new_album"
+        app:placeholderText="i.e. Memories with Ex"
         app:boxBackgroundMode="outline"
         app:boxBackgroundColor="@color/white"
         app:expandedHintEnabled="false">
