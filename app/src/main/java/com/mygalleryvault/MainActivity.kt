@@ -65,10 +65,10 @@ class MainActivity : AppCompatActivity() {
         val dialogLayout = DialogCreateAlbumBinding.inflate(layoutInflater)
         MaterialAlertDialogBuilder(this)
             .setView(dialogLayout.root)
-            .setPositiveButton("Create") { dialog, which ->
+            .setPositiveButton("Create") { _, _ ->
                 Toast.makeText(this, dialogLayout.textField.text, Toast.LENGTH_SHORT).show()
             }
-            .setNeutralButton("Cancel") { dialog, which ->
+            .setNeutralButton("Cancel") { _, _ ->
                 // Respond to negative button press
             }
             .show()
