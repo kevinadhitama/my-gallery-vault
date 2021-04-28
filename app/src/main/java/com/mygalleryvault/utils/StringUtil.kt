@@ -11,7 +11,7 @@ object StringUtil {
         return DateUtils.getRelativeTimeSpanString(
             timeCreated,
             Calendar.getInstance().timeInMillis,
-            DateUtils.HOUR_IN_MILLIS
+            DateUtils.MINUTE_IN_MILLIS
         ).toString()
     }
 }
