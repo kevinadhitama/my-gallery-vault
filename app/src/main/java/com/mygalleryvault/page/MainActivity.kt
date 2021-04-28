@@ -2,27 +2,32 @@ package com.mygalleryvault.page
 
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ActivityMainBinding
 import com.mygalleryvault.databinding.DialogCreateAlbumBinding
+import com.mygalleryvault.datamodel.Album
+import com.mygalleryvault.page.ui.albums.AlbumsViewModel
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel: AlbumsViewModel by viewModels()
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,7 +42,8 @@ class MainActivity : AppCompatActivity() {
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = binding.navView
-        val fragmentContainer = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val fragmentContainer =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = fragmentContainer.navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -66,11 +72,19 @@ class MainActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setView(dialogLayout.root)
             .setPositiveButton("Create") { _, _ ->
-                Toast.makeText(this, dialogLayout.textField.text, Toast.LENGTH_SHORT).show()
+                //todo replace with real impl
+                viewModel.albums.add(
+                    Album(
+                        dialogLayout.textField.text.toString(),
+                        "",
+                        mutableListOf()
+                    )
+                )
             }
             .setNeutralButton("Cancel") { _, _ ->
                 // Respond to negative button press
             }
+            .setCancelable(false)
             .show()
         dialogLayout.textField.requestFocus()
     }
