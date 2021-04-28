@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ItemAlbumBinding
 import com.mygalleryvault.datamodel.Album
+import com.mygalleryvault.utils.StringUtil
 
 /**
  * Create by kevin.adhitama pm 4/28/2021.
@@ -25,8 +26,10 @@ class AlbumsListAdapter(private val albumsList: List<Album>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.albumTitleTextView.text = albumsList[position].name
-        holder.binding.albumSubtitleTextView.text = albumsList[position].tsCreated
+        val item = albumsList[position]
+        holder.binding.albumTitleTextView.text = item.name
+        holder.binding.albumSubtitleTextView.text =
+            StringUtil.getRelativeTime(item.tsCreated.toLong())
         holder.binding.root.animation =
             AnimationUtils.loadAnimation(holder.binding.root.context, R.anim.fade_in_animation)
     }

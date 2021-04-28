@@ -2,10 +2,10 @@ package com.mygalleryvault.page
 
 import android.os.Bundle
 import android.view.Menu
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,20 +18,23 @@ import com.google.android.material.navigation.NavigationView
 import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ActivityMainBinding
 import com.mygalleryvault.databinding.DialogCreateAlbumBinding
-import com.mygalleryvault.datamodel.Album
+import com.mygalleryvault.page.factory.MainViewModelFactory
+import com.mygalleryvault.utils.AlbumSharedPreferences
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private lateinit var viewModel: MainViewModel
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel =
+            ViewModelProvider(this, MainViewModelFactory(this)).get(MainViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+        setContentView(binding.root)
         val toolbar: Toolbar = binding.appBarMain.toolbar
         setSupportActionBar(toolbar)
 
@@ -70,17 +73,12 @@ class MainActivity : AppCompatActivity() {
         val dialogLayout = DialogCreateAlbumBinding.inflate(layoutInflater)
         MaterialAlertDialogBuilder(this)
             .setView(dialogLayout.root)
-            .setPositiveButton("Create") { _, _ ->
-                //todo replace with real impl
-                viewModel.albums.add(
-                    Album(
-                        dialogLayout.textField.text.toString(),
-                        "",
-                        mutableListOf()
-                    )
-                )
+            .setPositiveButton(R.string.common_text_create) { _, _ ->
+                AlbumSharedPreferences.addAlbum(this, dialogLayout.textField.text.toString())?.let {
+                    viewModel.albums.add(0, it)
+                }
             }
-            .setNeutralButton("Cancel") { _, _ ->
+            .setNeutralButton(R.string.common_text_cancel) { _, _ ->
                 // Respond to negative button press
             }
             .setCancelable(false)
