@@ -19,11 +19,10 @@ import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ActivityMainBinding
 import com.mygalleryvault.databinding.DialogCreateAlbumBinding
 import com.mygalleryvault.datamodel.Album
-import com.mygalleryvault.page.ui.albums.AlbumsViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: AlbumsViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding

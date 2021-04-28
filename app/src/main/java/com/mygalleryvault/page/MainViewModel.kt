@@ -1,9 +1,9 @@
-package com.mygalleryvault.page.ui.albums
+package com.mygalleryvault.page
 
 import androidx.lifecycle.ViewModel
 import com.mygalleryvault.datamodel.Album
 
-class AlbumsViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
 
     val albums = mutableListOf<Album>().apply {
         //todo remove dummy data
