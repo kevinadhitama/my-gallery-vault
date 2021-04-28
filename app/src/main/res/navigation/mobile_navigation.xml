@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.mygalleryvault.page.ui.albums.AlbumsFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_albums"
         tools:layout="@layout/fragment_albums" />
 
     <fragment
