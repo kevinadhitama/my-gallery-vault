@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="#F4F4F4" />
+        </shape>
+    </item>
+    <item
+        android:bottom="24dp"
+        android:drawable="@drawable/ic_baseline_collections_24"
+        android:left="24dp"
+        android:right="24dp"
+        android:top="24dp" />
+</layer-list>

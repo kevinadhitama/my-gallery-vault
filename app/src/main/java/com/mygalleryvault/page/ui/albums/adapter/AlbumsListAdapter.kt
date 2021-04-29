@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ItemAlbumBinding
 import com.mygalleryvault.datamodel.Album
 import com.mygalleryvault.utils.StringUtil
@@ -15,12 +17,6 @@ class AlbumsListAdapter(
     private val albumsList: MutableList<Album>,
     private val listener: Listener
 ) : RecyclerView.Adapter<AlbumsListAdapter.ViewHolder>() {
-
-    fun updateItems(albumsList: MutableList<Album>) {
-        this.albumsList.clear()
-        this.albumsList.addAll(albumsList)
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -45,13 +41,16 @@ class AlbumsListAdapter(
             return@setOnLongClickListener true
         }
 
-        //todo replace with real implementation
-        Glide.with(holder.itemView.context)
-            //.load("https://lh3.googleusercontent.com/proxy/qL9T3Z1GWABr0kqsLyv_LnldBcn-10KuC8gKFuS4zlmJn_-EdP2LQEpjxpSl3MN213bRlm8QTBskDqAmuuo1o0FSgDtn2eNY8PqmJpf9wWaKu7LSkFI")
-            .load("/storage/emulated/0/Android/data/com.mygalleryvault/files/770b4260-faaa-4086-85a9-73c749303af85904535728797528553")
-            .centerCrop()
-            .dontAnimate()
-            .into(holder.binding.albumImageView)
+        if (item.listImage.isNotEmpty()) {
+            Glide.with(holder.itemView.context)
+                .load(item.listImage[0].filePath)
+                .centerCrop()
+                .thumbnail()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.binding.albumImageView)
+        } else {
+            holder.binding.albumImageView.setImageResource(R.drawable.placeholder_no_image)
+        }
     }
 
     override fun getItemCount(): Int {
