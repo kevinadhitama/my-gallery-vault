@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_albums">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_albums"
         android:name="com.mygalleryvault.page.ui.albums.AlbumsFragment"
         android:label="@string/menu_albums"
-        tools:layout="@layout/fragment_albums" />
+        tools:layout="@layout/fragment_albums">
+        <action
+            android:id="@+id/action_nav_albums_to_images_thumbnails_list"
+            app:destination="@id/nav_images_thumbnails_list"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -22,4 +28,13 @@
         android:name="com.mygalleryvault.page.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_images_thumbnails_list"
+        android:name="com.mygalleryvault.page.ui.albumdetail.ImagesThumbnailsListFragment" >
+        <argument
+            android:name="album"
+            app:argType="com.mygalleryvault.datamodel.Album" />
+    </fragment>
+
 </navigation>
