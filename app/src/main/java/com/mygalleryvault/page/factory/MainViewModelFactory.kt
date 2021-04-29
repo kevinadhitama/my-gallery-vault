@@ -16,9 +16,7 @@ class MainViewModelFactory(context: Context) : NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (MainViewModel::class.java.isAssignableFrom(modelClass)) {
-            return MainViewModel().apply {
-                albums.addAll(listAlbums)
-            } as T
+            return MainViewModel(listAlbums) as T
         }
 
         return super.create(modelClass)

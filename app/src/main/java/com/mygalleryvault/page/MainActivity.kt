@@ -38,10 +38,6 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = binding.appBarMain.toolbar
         setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = binding.appBarMain.fab
-        fab.setOnClickListener {
-            showAlbumDialog()
-        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = binding.navView
         val fragmentContainer =
@@ -51,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_albums, R.id.nav_gallery, R.id.nav_slideshow
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -69,20 +65,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun showAlbumDialog() {
-        val dialogLayout = DialogCreateAlbumBinding.inflate(layoutInflater)
-        MaterialAlertDialogBuilder(this)
-            .setView(dialogLayout.root)
-            .setPositiveButton(R.string.common_text_create) { _, _ ->
-                AlbumSharedPreferences.addAlbum(this, dialogLayout.textField.text.toString())?.let {
-                    viewModel.albums.add(0, it)
-                }
-            }
-            .setNeutralButton(R.string.common_text_cancel) { _, _ ->
-                // Respond to negative button press
-            }
-            .setCancelable(false)
-            .show()
-        dialogLayout.textField.requestFocus()
-    }
 }

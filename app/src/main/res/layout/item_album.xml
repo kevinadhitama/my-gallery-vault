@@ -11,11 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:contentDescription="@null"
+        android:background="#F4F4F4"
         app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent" />
 
     <TextView
         android:id="@+id/albumTitleTextView"
@@ -25,7 +26,7 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/albumImageView"
@@ -39,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/albumImageView"
