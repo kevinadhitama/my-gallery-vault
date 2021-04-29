@@ -82,12 +82,10 @@ class AlbumsFragment : Fragment() {
                     dialogLayout.textField.text.toString()
                 )?.let {
                     mainViewModel.addAlbum(it)
-                    mainViewModel.album.value?.let { albums ->
-                        albumListAdapter.updateItems(albums)
-                        binding.recyclerView.postDelayed({
-                            binding.recyclerView.smoothScrollToPosition(0)
-                        }, 500)
-                    }
+                    albumListAdapter.notifyDataSetChanged()
+                    binding.recyclerView.postDelayed({
+                        binding.recyclerView.smoothScrollToPosition(0)
+                    }, 500)
                 }
             }
             .setNeutralButton(R.string.common_text_cancel) { _, _ ->
