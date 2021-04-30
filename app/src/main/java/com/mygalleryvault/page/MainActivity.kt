@@ -2,6 +2,7 @@ package com.mygalleryvault.page
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.WindowManager.LayoutParams.FLAG_SECURE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -26,6 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //add security when user go back to home, preview last state will be hidden
+        window.setFlags(
+            FLAG_SECURE,
+            FLAG_SECURE
+        );
+
         viewModel =
             ViewModelProvider(this, MainViewModelFactory(this)).get(MainViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -46,6 +53,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initDrawerNavigationView() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
         val navView: NavigationView = binding.navView
         val fragmentContainer =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -73,4 +82,8 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    override fun onPause() {
+        binding.pinWidget.activatePinWidget()
+        super.onPause()
+    }
 }
