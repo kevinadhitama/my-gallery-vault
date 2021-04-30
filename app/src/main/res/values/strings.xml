@@ -5,11 +5,9 @@
     <string name="nav_header_title">My Gallery Vault</string>
     <string name="nav_header_subtitle">Thank you for using this app</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="menu_albums">My Albums</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_settings">Settings</string>
+    <string name="menu_setting">Setting</string>
 
     <plurals name="album_items_count">
         <item quantity="one">"1 item"</item>
