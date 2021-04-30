@@ -11,6 +11,12 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
+    <plurals name="album_items_count">
+        <item quantity="one">"1 item"</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+    <string name="album_no_items_count">No item yet</string>
+
     <string name="hint_create_new_album">Create a new Album</string>
 
     <string name="common_text_create">Create</string>

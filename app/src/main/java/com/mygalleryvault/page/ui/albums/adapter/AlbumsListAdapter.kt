@@ -8,7 +8,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ItemAlbumBinding
 import com.mygalleryvault.datamodel.Album
-import com.mygalleryvault.utils.StringUtil
 
 /**
  * Create by kevin.adhitama pm 4/28/2021.
@@ -32,7 +31,13 @@ class AlbumsListAdapter(
         val item = albumsList[position]
         holder.binding.albumTitleTextView.text = item.name
         holder.binding.albumSubtitleTextView.text =
-            StringUtil.getRelativeTime(item.tsCreated.toLong())
+            if (item.listImage.size == 0) holder.itemView.resources.getString(R.string.album_no_items_count)
+            else holder.itemView.resources.getQuantityString(
+                R.plurals.album_items_count,
+                item.listImage.size,
+                item.listImage.size
+            )
+
         holder.binding.root.setOnClickListener {
             listener.onItemClickListener(item)
         }
