@@ -25,6 +25,7 @@ import com.mygalleryvault.page.ui.albumdetail.adapter.ImagesThumbnailsListAdapte
 import com.mygalleryvault.utils.AlbumSharedPreferences
 import com.mygalleryvault.utils.view.DefaultGridItemDecorator
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
@@ -89,6 +90,17 @@ class ImagesThumbnailsListFragment : Fragment() {
         }
     }
 
+    private fun dispatchChooseGalleryIntent() {
+        Intent(Intent.ACTION_GET_CONTENT).also { pickPhoto ->
+            pickPhoto.type = "image/*"
+            pickPhoto.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            startActivityForResult(
+                pickPhoto,
+                PublicConstants.TAKE_PICTURE_GALLERY_REQUEST_CODE
+            )
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             PublicConstants.TAKE_PICTURE_REQUEST_CODE -> {
@@ -100,10 +112,23 @@ class ImagesThumbnailsListFragment : Fragment() {
                 }
                 tempSavedPicture = null
             }
+            PublicConstants.TAKE_PICTURE_GALLERY_REQUEST_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    data?.data?.let {
+                        createImagesFile(mutableListOf(it))
+                    }
+                    data?.clipData?.let {
+                        val listUri = mutableListOf<Uri>()
+                        for (i in 0 until it.itemCount) {
+                            listUri.add(it.getItemAt(i).uri)
+                        }
+                        createImagesFile(listUri)
+                    }
+                }
+            }
         }
     }
 
-    @Throws(IOException::class)
     private fun createImageFile(): File {
         val fileName: String = UUID.randomUUID().toString()
         val storageDir: File? = activity?.getExternalFilesDir("")
@@ -117,6 +142,38 @@ class ImagesThumbnailsListFragment : Fragment() {
         }
     }
 
+    private fun createImagesFile(listUri: MutableList<Uri>) {
+        listUri.forEach {
+            val fileName: String = UUID.randomUUID().toString()
+            val storageDir: File? = activity?.getExternalFilesDir("")
+            File.createTempFile(
+                fileName,
+                "",
+                storageDir
+            ).apply {
+                requireContext().contentResolver.openInputStream(it)?.let { input ->
+                    val out = FileOutputStream(this)
+                    val buf = ByteArray(1024)
+                    var len: Int
+                    while (input.read(buf).also { len = it } > 0) {
+                        out.write(buf, 0, len)
+                    }
+                    out.close()
+                    input.close()
+                    val picture =
+                        Picture(
+                            this.absolutePath,
+                            fileName,
+                            Calendar.getInstance().timeInMillis.toString()
+                        )
+
+                    AlbumSharedPreferences.addImage(requireContext(), args.album, picture)
+                }
+            }
+        }
+        binding.recyclerView.adapter!!.notifyDataSetChanged()
+    }
+
     private fun showAlbumDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.hint_add_photos_to_album, args.album.name))
@@ -126,7 +183,7 @@ class ImagesThumbnailsListFragment : Fragment() {
                         dispatchTakePictureIntent()
                     }
                     1 -> {
-
+                        dispatchChooseGalleryIntent()
                     }
                 }
             }
