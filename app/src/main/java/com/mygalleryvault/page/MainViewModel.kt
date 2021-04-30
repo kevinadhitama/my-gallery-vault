@@ -21,5 +21,6 @@ class MainViewModel(listAlbums: MutableList<Album>) : ViewModel() {
     }
 
     val album : LiveData<MutableList<Album>> = _albums
-    var path = ""
+
+    val toolbarTitle = MutableLiveData<String>()
 }

@@ -12,14 +12,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.mygalleryvault.R
 import com.mygalleryvault.databinding.ActivityMainBinding
-import com.mygalleryvault.databinding.DialogCreateAlbumBinding
 import com.mygalleryvault.page.factory.MainViewModelFactory
-import com.mygalleryvault.utils.AlbumSharedPreferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,14 +31,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        initToolbar()
+        initDrawerNavigationView()
+    }
+
+    private fun initToolbar() {
         val toolbar: Toolbar = binding.appBarMain.toolbar
         setSupportActionBar(toolbar)
+        viewModel.toolbarTitle.observe(this, {
+            toolbar.title = it
+        })
+    }
 
+    private fun initDrawerNavigationView() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = binding.navView
         val fragmentContainer =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = fragmentContainer.navController
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
