@@ -14,7 +14,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mygalleryvault.R
 import com.mygalleryvault.const.PublicConstants
 import com.mygalleryvault.databinding.FragmentImagesThumbnailsListBinding
 import com.mygalleryvault.datamodel.Picture
@@ -50,7 +52,7 @@ class ImagesThumbnailsListFragment : Fragment() {
     private fun initFAB() {
         val fab: FloatingActionButton = binding.fab
         fab.setOnClickListener {
-            dispatchTakePictureIntent()
+            showAlbumDialog()
         }
     }
 
@@ -78,7 +80,10 @@ class ImagesThumbnailsListFragment : Fragment() {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, PublicConstants.TAKE_PICTURE_REQUEST_CODE)
+                    startActivityForResult(
+                        takePictureIntent,
+                        PublicConstants.TAKE_PICTURE_REQUEST_CODE
+                    )
                 }
             }
         }
@@ -110,5 +115,22 @@ class ImagesThumbnailsListFragment : Fragment() {
             tempSavedPicture =
                 Picture(absolutePath, fileName, Calendar.getInstance().timeInMillis.toString())
         }
+    }
+
+    private fun showAlbumDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.hint_add_photos_to_album, args.album.name))
+            .setItems(R.array.dialog_add_photo_options) { _, which ->
+                when (which) {
+                    0 -> {
+                        dispatchTakePictureIntent()
+                    }
+                    1 -> {
+
+                    }
+                }
+            }
+            .setCancelable(false)
+            .show()
     }
 }
