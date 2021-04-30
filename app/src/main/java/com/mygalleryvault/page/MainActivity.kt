@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         binding.pinWidget.activatePinWidget()
+        binding.drawerLayout.closeDrawers()
         super.onPause()
     }
 }
