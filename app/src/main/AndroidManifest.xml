@@ -26,6 +26,7 @@
         </provider>
         <activity
             android:name=".page.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyGalleryVault.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

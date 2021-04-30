@@ -11,7 +11,10 @@ import com.mygalleryvault.datamodel.Picture
 /**
  * Create by kevin.adhitama pm 4/28/2021.
  */
-class ImagesThumbnailsListAdapter(private val albumsList: List<Picture>) :
+class ImagesThumbnailsListAdapter(
+    private val albumsList: List<Picture>,
+    private val listener: Listener
+) :
     RecyclerView.Adapter<ImagesThumbnailsListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,10 +35,25 @@ class ImagesThumbnailsListAdapter(private val albumsList: List<Picture>) :
             .thumbnail()
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.binding.thumbnailImageView)
+
+        holder.binding.root.setOnClickListener {
+            listener.onItemClickListener(item)
+        }
+        holder.binding.root.setOnLongClickListener {
+            listener.onItemLongClickListener(item)
+            return@setOnLongClickListener true
+        }
+
     }
 
     override fun getItemCount(): Int {
         return albumsList.size
+    }
+
+    interface Listener {
+        fun onItemClickListener(item: Picture)
+
+        fun onItemLongClickListener(item: Picture)
     }
 
     inner class ViewHolder(val binding: ItemImageThumbnailBinding) :

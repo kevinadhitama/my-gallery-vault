@@ -26,6 +26,7 @@
     <string name="app_passcode_invalid_message">"Invalid Passcode, Please try again!"</string>
     <string name="app_passcode_not_match_message">"Passcode didn't match, Please try again!"</string>
 
+    <string name="common_added_relative_time">"Added %1$s"</string>
     <string name="hint_add_photos_to_album">"Add photo to \"%1$s\""</string>
     <array name="dialog_add_photo_options">
         <item>Take Photo</item>

@@ -21,6 +21,7 @@ import com.mygalleryvault.const.PublicConstants
 import com.mygalleryvault.databinding.FragmentImagesThumbnailsListBinding
 import com.mygalleryvault.datamodel.Picture
 import com.mygalleryvault.page.MainViewModel
+import com.mygalleryvault.page.dialogs.FullScreenImageDialog
 import com.mygalleryvault.page.ui.albumdetail.adapter.ImagesThumbnailsListAdapter
 import com.mygalleryvault.utils.AlbumSharedPreferences
 import com.mygalleryvault.utils.view.DefaultGridItemDecorator
@@ -59,7 +60,16 @@ class ImagesThumbnailsListFragment : Fragment() {
 
     private fun initRecyclerView() {
         binding.recyclerView.layoutManager = GridLayoutManager(context, albumSpan)
-        binding.recyclerView.adapter = ImagesThumbnailsListAdapter(args.album.listImage)
+        binding.recyclerView.adapter = ImagesThumbnailsListAdapter(args.album.listImage,
+            object : ImagesThumbnailsListAdapter.Listener {
+                override fun onItemClickListener(item: Picture) {
+                    FullScreenImageDialog(item).show(parentFragmentManager, "imageDialog")
+                }
+
+                override fun onItemLongClickListener(item: Picture) {
+                    //todo remove item listener
+                }
+            })
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.addItemDecoration(DefaultGridItemDecorator(albumSpan, 2f))
     }
