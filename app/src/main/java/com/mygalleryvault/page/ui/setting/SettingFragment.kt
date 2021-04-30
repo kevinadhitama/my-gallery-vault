@@ -15,6 +15,7 @@ class SettingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //todo improvement for settings
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
         val textView: TextView = root.findViewById(R.id.text_setting)
         textView.text = "Upcoming Feature"
