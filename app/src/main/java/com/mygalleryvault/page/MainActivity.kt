@@ -1,7 +1,6 @@
 package com.mygalleryvault.page
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.WindowManager.LayoutParams.FLAG_SECURE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
