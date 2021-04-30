@@ -67,7 +67,7 @@ class AlbumsFragment : Fragment() {
             }
 
             override fun onItemLongClickListener(item: Album) {
-
+                //todo improvement for deleting the albums
             }
         }
     }
