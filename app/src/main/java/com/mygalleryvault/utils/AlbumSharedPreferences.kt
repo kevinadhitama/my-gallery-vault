@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mygalleryvault.datamodel.Album
+import com.mygalleryvault.datamodel.Picture
 import java.util.*
 
 /**
@@ -15,6 +16,15 @@ object AlbumSharedPreferences {
 
     private fun getSP(context: Context): SharedPreferences {
         return context.getSharedPreferences(albumSPName, Context.MODE_PRIVATE)
+    }
+
+    fun addImage(context: Context, album: Album, picture: Picture) {
+        val sp = getSP(context)
+        album.listImage.add(0, picture)
+        with(sp.edit()) {
+            putString(album.id, Gson().toJson(album))
+            apply()
+        }
     }
 
     fun addAlbum(context: Context, albumName: String): Album? {
