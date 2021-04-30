@@ -9,7 +9,7 @@
 
     <string name="menu_albums">My Albums</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_settings">Settings</string>
 
     <plurals name="album_items_count">
         <item quantity="one">"1 item"</item>
@@ -21,6 +21,13 @@
 
     <string name="common_text_create">Create</string>
     <string name="common_text_cancel">Cancel</string>
+
+    <string name="app_passcode_enter_title">Enter Passcode</string>
+    <string name="app_passcode_new_title">"Enter New Passcode"</string>
+    <string name="app_passcode_second_new_title">"Please re-enter New Passcode"</string>
+    <string name="app_passcode_invalid_message">"Invalid Passcode, Please try again!"</string>
+    <string name="app_passcode_not_match_message">"Passcode didn't match, Please try again!"</string>
+
     <string name="hint_add_photos_to_album">"Add photo to \"%1$s\""</string>
     <array name="dialog_add_photo_options">
         <item>Take Photo</item>
